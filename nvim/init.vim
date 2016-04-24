@@ -18,32 +18,7 @@ Plug 'mhinz/vim-startify'
       \ map(split(system('fortune'), '\n'), '"   ". v:val') + ['','']
 
 Plug 'NLKNguyen/papercolor-theme'
-
-Plug 'jszakmeister/vim-togglecursor'
-Plug 'Shougo/deoplete.nvim'
-  let g:deoplete#enable_at_startup = 1
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
-Plug 'junegunn/fzf.vim'
-  let g:fzf_nvim_statusline = 0 " disable statusline overwriting
-  let $FZF_DEFAULT_OPTS='--color=bw'
-  nnoremap <silent> <leader><space> :Files<CR>
-  nnoremap <silent> <leader>a :Buffers<CR>
-  nnoremap <silent> <leader>; :BLines<CR>
-  nnoremap <silent> <leader>. :Lines<CR>
-  let g:fzf_colors =
-  \ { 'fg':      ['fg', 'Normal'],
-    \ 'bg':      ['bg', 'Normal'],
-    \ 'hl':      ['fg', 'Comment'],
-    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-    \ 'hl+':     ['fg', 'Statement'],
-    \ 'info':    ['fg', 'PreProc'],
-    \ 'prompt':  ['fg', 'Conditional'],
-    \ 'pointer': ['fg', 'Exception'],
-    \ 'marker':  ['fg', 'Keyword'],
-    \ 'spinner': ['fg', 'Label'],
-    \ 'header':  ['fg', 'Comment'] }
+" Plug 'morhetz/gruvbox'
 
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
@@ -111,12 +86,31 @@ function! LightLineFilename()
        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]')
 endfunction
 
-Plug 'edkolev/tmuxline.vim'
-Plug 'bling/vim-bufferline'
-  let g:bufferline_show_bufnr = 0
+Plug 'jszakmeister/vim-togglecursor'
 
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-  nnoremap <leader>\ :NERDTreeToggle<CR>
+Plug 'Shougo/deoplete.nvim'
+  let g:deoplete#enable_at_startup = 1
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
+Plug 'junegunn/fzf.vim'
+  let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+  let g:fzf_colors =
+  \ { 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
+  nnoremap <silent> <leader><space> :Files<CR>
+  nnoremap <silent> <leader>a :Buffers<CR>
+  nnoremap <silent> <leader>; :BLines<CR>
+  nnoremap <silent> <leader>. :Lines<CR>
 
 Plug 'tpope/vim-fugitive'
   nnoremap <leader>gs :Gstatus<CR>
@@ -128,9 +122,8 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'css'] }
 
-Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
-Plug 'gavocanov/vim-js-indent', { 'for': ['javascript', 'javascript.jsx', 'html'] }
-Plug 'mxw/vim-jsx', { 'for': [ 'javascript', 'javascript.jsx' ] }
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
   let g:jsx_ext_required = 0
 
 Plug 'mattn/emmet-vim'
@@ -150,24 +143,33 @@ call plug#end()
 
 " UI
 " ==============================================================================
+"if strftime("%H") >= 6 && strftime("%H") <= 18
+"  set background=light
+"  colorscheme PaperColor
+"else
+"  let g:gruvbox_contrast_dark='soft'
+"  let g:gruvbox_invert_selection=0
+"  set background=dark
+"  colorscheme gruvbox
+"endif
+
 set background=light
 colorscheme PaperColor
 set number              " Show line numbers
+set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
 set showmatch           " Show matching brackets
 set showcmd             " Show command
-set showmatch           " Show match
 set ruler               " Show line positions
 set visualbell          " don't beep
 set noerrorbells        " don't beep
-set laststatus=2        " Show last status
-set noshowmode          " don't show default mode indicator
+set laststatus=2        " don't show last status
+set noshowmode          " Don't show mode
 set fillchars=vert:\    " Change vertical separator character to <space>
 set showtabline=0       " Don't show tabline
 
 " Editor
 " ==============================================================================
-
 set expandtab	          " Tabs to spaces
 set smarttab            " Smart tabs
 set shiftwidth=2        " Shidt width
@@ -180,7 +182,6 @@ set ai                  " Set auto indent
 set si                  " Set smart indent
 set nowrap              " Don't wrap lines
 set hidden              " Allows buffers to be hidden even if modified.
-
 
 " Keybindings
 " ==============================================================================
