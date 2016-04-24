@@ -1,0 +1,18 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
+alias v='nvim'
+alias vim='nvim'
+#export DEFAULT_FILE_STORAGE=custom_storages.MediaStorage
+#export STATICFILES_STORAGE=custom_storages.StaticStorage

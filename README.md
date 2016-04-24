@@ -1,2 +1,3 @@
-# /~
-### dotfiles by Kemble Song
+/~
+=======================
+### dotfiles by kemble. 
