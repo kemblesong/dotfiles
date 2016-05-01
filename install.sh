@@ -39,11 +39,9 @@ brew install gnu-sed --with-default-names
 brew install fish
 brew install tmux
 brew install neovim
-brew install reattach-to-user-namespace
 
 # Dev stuff
 brew install node
-#brew install postgresql
 
 # Misc
 brew install fortune
