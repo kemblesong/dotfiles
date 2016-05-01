@@ -43,7 +43,7 @@ brew install reattach-to-user-namespace
 
 # Dev stuff
 brew install node
-brew install postgresql
+#brew install postgresql
 
 # Misc
 brew install fortune
@@ -60,8 +60,9 @@ brew cask install font-source-code-pro
 brew cask install google-chrome
 brew cask install firefox
 brew cask install slack
-brew cask install transmission
-brew cask install vlc
+brew cask install spectacle
+#brew cask install transmission
+#brew cask install vlc
 
 # Remove outdated versions from the cellar.
 brew cleanup
