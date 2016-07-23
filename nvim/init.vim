@@ -1,6 +1,6 @@
 " NEOVIM CONFIGURATION
 " ~/.config/nvim/init.vim
-" By Kemble Song
+" Kemble Song <kemblesong>
 " ===============================================================================
 
 " Map the leader key to space
@@ -10,47 +10,113 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Plugins
 " ===============================================================================
-
 call plug#begin()
 
 Plug 'mhinz/vim-startify'
-  let g:startify_custom_header =
-      \ map(split(system('fortune'), '\n'), '"   ". v:val') + ['','']
 
-"Plug 'NLKNguyen/papercolor-theme'
-"Plug 'morhetz/gruvbox'
-"Plug 'chriskempson/base16-vim'
-Plug 'frankier/neovim-colors-solarized-truecolor-only'
+Plug 'w0ng/vim-hybrid'
+  let g:hybrid_custom_term_colors = 1
+  let g:hybrid_reduced_contrast = 1
+Plug 'cocopon/lightline-hybrid.vim'
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-  let g:airline_powerline_fonts = 1
-  let g:airline_mode_map = {
-      \ '__' : '-',
-      \ 'n'  : 'N',
-      \ 'i'  : 'I',
-      \ 'R'  : 'R',
-      \ 'c'  : 'C',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ '' : 'V',
-      \ 's'  : 'S',
-      \ 'S'  : 'S',
-      \ 't' : 'T',
-      \ }
+Plug 'itchyny/lightline.vim'
+  let g:lightline = {
+        \ 'colorscheme': 'hybrid',
+        \ 'mode_map' : {
+        \ 'n' : 'N',
+        \ 'i' : 'I',
+        \ 'R' : 'R',
+        \ 'v' : 'V',
+        \ 'V' : 'V',
+        \ "\<C-v>": 'V',
+        \ 'c' : 'C',
+        \ 's' : 'S',
+        \ 'S' : 'S',
+        \ "\<C-s>": 'S',
+        \ 't': 'T',
+        \ '?': '' },
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'fugitive', 'filename', 'whitespace' ] ]
+        \ },
+        \ 'component_function': {
+        \   'fugitive': 'LightLineFugitive',
+        \   'readonly': 'LightLineReadonly',
+        \   'modified': 'LightLineModified',
+        \   'filename': 'LightLineFilename',
+        \   'whitespace': 'TrailingSpaceWarning'
+        \ },
+        \ 'separator': { 'left': '', 'right': '' },
+        \ 'subseparator': { 'left': '', 'right': '' }
+        \ }
+
+  function! LightLineModified()
+    if &filetype == "help"
+      return ""
+    elseif &modified
+      return "✎"
+    elseif &modifiable
+      return ""
+    else
+      return ""
+    endif
+  endfunction
+
+  function! LightLineReadonly()
+    if &filetype == "help"
+      return ""
+    elseif &readonly
+      return "∅"
+    else
+      return ""
+    endif
+  endfunction
+
+  function! LightLineFugitive()
+    if exists("*fugitive#head")
+      let _ = fugitive#head()
+      return strlen(_) ? '⎇ '._ : ''
+    endif
+    return ''
+  endfunction
+
+  function! LightLineFilename()
+    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+         \ ('' != LightLineModified() ? LightLineModified() . ' ' : '') .
+         \ ('' != expand('%:t') ? expand('%:t') : '[No Name]')
+  endfunction
+
+  function! TrailingSpaceWarning()
+    if !exists("b:statline_trailing_space_warning")
+      let lineno = search('\s$', 'nw')
+      if lineno != 0
+        let b:statline_trailing_space_warning = '[trailing:'.lineno.']'
+      else
+        let b:statline_trailing_space_warning = ''
+      endif
+    endif
+    return b:statline_trailing_space_warning
+  endfunction
 
 Plug 'jszakmeister/vim-togglecursor'
 
 Plug 'Shougo/deoplete.nvim'
   let g:deoplete#enable_at_startup = 1
 
+Plug 'neomake/neomake'
+  autocmd! BufWritePost * Neomake
+
+Plug 'craigemery/vim-autotag'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
   let g:fzf_nvim_statusline = 0
   nnoremap <silent> <leader><space> :Files<CR>
   nnoremap <silent> <leader>a :Buffers<CR>
-  nnoremap <silent> <leader>; :BLines<CR>
+  nnoremap <silent> <leader>; :Tags<CR>
   nnoremap <silent> <leader>. :Lines<CR>
+  nnoremap <silent> <leader>/ :Ag<CR>
+  let $FZF_DEFAULT_OPTS='--color=bw'
 
 Plug 'tpope/vim-fugitive'
   nnoremap <leader>gs :Gstatus<CR>
@@ -62,10 +128,6 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'css'] }
 
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-  let g:jsx_ext_required = 0
-
 Plug 'mattn/emmet-vim'
   let g:user_emmet_leader_key = '<C-E>'
 
@@ -74,31 +136,27 @@ Plug 'junegunn/goyo.vim'
 
 Plug 'tpope/vim-surround'
 
-Plug 'elixir-lang/vim-elixir', { 'for': [ 'elixir', 'eelixir' ] }
-
-Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-  let g:elm_setup_keybindings = 0
-
-Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
-
-Plug 'dag/vim-fish', { 'for': 'fish' }
-
 Plug 'christoomey/vim-tmux-navigator'
 
+Plug 'sheerun/vim-polyglot'
+
+Plug 'leafo/moonscript-vim'
+
+Plug 'mileszs/ack.vim'
+  if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+  endif
+
 call plug#end()
+
+" Syntax / Filetype things
+" ==============================================================================
 
 
 " UI
 " ==============================================================================
-"if strftime("%H") > 6 && strftime("%H") < 18
-"  set background=light
-"  let $FZF_DEFAULT_OPTS='--color bw'
-"else
-"  set background=dark
-let $FZF_DEFAULT_OPTS='--color dark,hl:33,hl+:37,fg+:235,bg+:136,fg+:254,info:254,prompt:37,spinner:108,pointer:235,marker:235'
-"endif
 set background=dark
-colorscheme solarized
+colorscheme hybrid
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
@@ -107,8 +165,8 @@ set showcmd             " Show command
 set ruler               " Show line positions
 set visualbell          " don't beep
 set noerrorbells        " don't beep
+set noshowmode          " don't show mode
 set laststatus=2        " don't show last status
-set noshowmode          " Don't show mode
 set showtabline=0       " Don't show tabline
 
 " Editor
@@ -152,14 +210,32 @@ nnoremap <silent><leader>q :q<CR>
 nnoremap <silent><leader>n :set rnu! rnu? <cr>
 " jk is escape
 inoremap jk <esc>
+" System clipboard copy/paste
+vnoremap <silent><Leader>d "+d
+vnoremap <silent><Leader>y "+y
+vnoremap <silent><Leader>p "+p
+vnoremap <silent><Leader>P "+P
+nnoremap <silent><Leader>d "+d
+nnoremap <silent><Leader>y "+y
+nnoremap <silent><Leader>p "+p
+nnoremap <silent><Leader>P "+P
 
 " Removes trailing spaces
+nnoremap <silent><Leader>t :call TrimWhiteSpace()<CR>
+
+" fix <c-h> in neovim
+if has('nvim')
+  nnoremap <BS> <C-W>h
+endif
+
+" Misc functions / auto commands
+" ==============================================================================
 function! TrimWhiteSpace()
     %s/\s\+$//e
 endfunction
-nnoremap <silent><Leader>t :call TrimWhiteSpace()<CR>
 
-if has('nvim')
-  " fix <c-h> in neovim
-  nnoremap <BS> <C-W>h
-endif
+" recalculate when idle, and after saving
+augroup statline_trail
+  autocmd!
+  autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
+augroup END

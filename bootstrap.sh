@@ -39,7 +39,7 @@ ln -s ~/dotfiles/git/ignore ~/.config/git/ignore
 ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 
 # Set fish as default shell
-# echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
-# chsh -s /usr/local/bin/fish
+echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
+chsh -s /usr/local/bin/fish
 
 echo "Done! Remember to run app specific plugin installers (fisher, Prefix + I, :PlugInstall)."

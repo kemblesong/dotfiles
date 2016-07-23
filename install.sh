@@ -39,9 +39,8 @@ brew install gnu-sed --with-default-names
 brew install fish
 brew install tmux
 brew install neovim
-
-# Dev stuff
 brew install node
+brew install the_silver_searcher 
 
 # Misc
 brew install fortune
@@ -53,14 +52,13 @@ brew tap caskroom/cask
 brew tap caskroom/versions
 brew tap caskroom/fonts
 
-brew cask install iterm2-beta
-brew cask install font-source-code-pro
+brew cask install iterm2-nightly
+brew cask install font-fira-code
 brew cask install google-chrome
-brew cask install firefox
 brew cask install slack
 brew cask install spectacle
-#brew cask install transmission
-#brew cask install vlc
+brew cask install transmission
+brew cask install vlc
 
 # Remove outdated versions from the cellar.
 brew cleanup
