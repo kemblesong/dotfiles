@@ -37,6 +37,7 @@ ln -s ~/dotfiles/fish/fishfile ~/.config/fish/fishfile
 ln -s ~/dotfiles/git/config ~/.config/git/config
 ln -s ~/dotfiles/git/ignore ~/.config/git/ignore
 ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
+ln -s ~/dotfiles/ctags/ctags ~/.ctags
 
 # Set fish as default shell
 echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
