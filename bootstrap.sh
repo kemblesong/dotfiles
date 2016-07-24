@@ -31,13 +31,13 @@ fi
 
 # Symlink files
 echo "  Symlinking config files"
-ln -s ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim
-ln -s ~/dotfiles/fish/config.fish ~/.config/fish/config.fish
-ln -s ~/dotfiles/fish/fishfile ~/.config/fish/fishfile
-ln -s ~/dotfiles/git/config ~/.config/git/config
-ln -s ~/dotfiles/git/ignore ~/.config/git/ignore
-ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
-ln -s ~/dotfiles/ctags/ctags ~/.ctags
+ln -fs ~/dotfiles/nvim/init.vim ~/.config/nvim/init.vim
+ln -fs ~/dotfiles/fish/config.fish ~/.config/fish/config.fish
+ln -fs ~/dotfiles/fish/fishfile ~/.config/fish/fishfile
+ln -fs ~/dotfiles/git/config ~/.config/git/config
+ln -fs ~/dotfiles/git/ignore ~/.config/git/ignore
+ln -fs ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
+ln -fs ~/dotfiles/ctags/ctags ~/.ctags
 
 # Set fish as default shell
 echo "/usr/local/bin/fish" | sudo tee -a /etc/shells

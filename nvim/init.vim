@@ -128,7 +128,7 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'css'] }
 
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': ['html', 'scss', 'css', 'js', 'jsx'] }
   let g:user_emmet_leader_key = '<C-E>'
 
 Plug 'junegunn/goyo.vim'
@@ -139,8 +139,11 @@ Plug 'tpope/vim-surround'
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'sheerun/vim-polyglot'
+  let g:polyglot_disabled = ['haxe']
+  
+Plug 'jdonaldson/vaxe', { 'for': 'haxe' }
 
-Plug 'leafo/moonscript-vim'
+Plug 'leafo/moonscript-vim', { 'for': 'moon' }
 
 Plug 'mileszs/ack.vim'
   if executable('ag')
@@ -151,7 +154,6 @@ call plug#end()
 
 " Syntax / Filetype things
 " ==============================================================================
-
 
 " UI
 " ==============================================================================

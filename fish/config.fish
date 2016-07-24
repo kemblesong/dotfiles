@@ -18,3 +18,5 @@ abbr -a gl git log
 abbr -a o open
 
 set -U EDITOR nvim
+set -x FZF_DEFAULT_COMMAND 'ag -g ""'
+set -x HAXE_STD_PATH "/usr/local/lib/haxe/std"
