@@ -17,6 +17,10 @@ abbr -a gs git status
 abbr -a gl git log
 abbr -a o open
 
+set -U fish_user_paths $HOME/.cargo/bin $HOME/.local/bin $fish_user_paths
 set -U EDITOR nvim
 set -x FZF_DEFAULT_COMMAND 'ag -g ""'
-set -x HAXE_STD_PATH "/usr/local/lib/haxe/std"
+set -x GOPATH $HOME/gospace
+set -x HAXE_STD_PATH /usr/local/lib/haxe/std
+set -x CARGO_HOME $HOME/.cargo
+set -x RUST_SRC_PATH /usr/local/src/rust/1.10.0/src

@@ -100,8 +100,13 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'jszakmeister/vim-togglecursor'
 
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Shougo/deoplete.nvim'
   let g:deoplete#enable_at_startup = 1
+  inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+  if !exists('g:deoplete#omni#input_patterns')
+    let g:deoplete#omni#input_patterns = {}
+  endif 
 
 Plug 'neomake/neomake'
   autocmd! BufWritePost * Neomake
@@ -140,10 +145,15 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'sheerun/vim-polyglot'
   let g:polyglot_disabled = ['haxe']
-  
+
 Plug 'jdonaldson/vaxe', { 'for': 'haxe' }
 
 Plug 'leafo/moonscript-vim', { 'for': 'moon' }
+
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+  let g:racer_cmd = "~/.cargo/bin/racer"
+
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 
 Plug 'mileszs/ack.vim'
   if executable('ag')
@@ -154,6 +164,10 @@ call plug#end()
 
 " Syntax / Filetype things
 " ==============================================================================
+" Go
+autocmd FileType go setlocal shiftwidth=4 tabstop=4
+" Rust
+let g:rustfmt_autosave = 1
 
 " UI
 " ==============================================================================

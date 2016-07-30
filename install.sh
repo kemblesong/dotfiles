@@ -4,16 +4,7 @@
 if test ! $(which brew)
 then
   echo "  Installing Homebrew for you."
-
-  # Install the correct homebrew for each OS type
-  if test "$(uname)" = "Darwin"
-  then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  elif test "$(expr substr $(uname -s) 1 5)" = "Linux"
-  then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
-  fi
-
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # Update homebrew
@@ -39,8 +30,13 @@ brew install gnu-sed --with-default-names
 brew install fish
 brew install tmux
 brew install neovim
+brew install the_silver_searcher
+brew install ctags
+
+# Languages
 brew install node
-brew install the_silver_searcher 
+brew install rust
+brew install haskell-stack
 
 # Misc
 brew install fortune
@@ -48,15 +44,14 @@ brew install cowsay
 brew install tree
 
 # Install native applications
-brew tap caskroom/cask
 brew tap caskroom/versions
 brew tap caskroom/fonts
 
 brew cask install iterm2-nightly
 brew cask install font-fira-code
-brew cask install google-chrome
-brew cask install slack
 brew cask install spectacle
+brew cask install flux
+brew cask install 1password
 brew cask install transmission
 brew cask install vlc
 
