@@ -12,16 +12,12 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " ===============================================================================
 call plug#begin()
 
-Plug 'mhinz/vim-startify'
-
-Plug 'w0ng/vim-hybrid'
-  let g:hybrid_custom_term_colors = 1
-  let g:hybrid_reduced_contrast = 1
-Plug 'cocopon/lightline-hybrid.vim'
+Plug 'junegunn/seoul256.vim'
+Plug 'shinchu/lightline-seoul256.vim'
 
 Plug 'itchyny/lightline.vim'
   let g:lightline = {
-        \ 'colorscheme': 'hybrid',
+        \ 'colorscheme': 'seoul256',
         \ 'mode_map' : {
         \ 'n' : 'N',
         \ 'i' : 'I',
@@ -100,18 +96,20 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'jszakmeister/vim-togglecursor'
 
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimfiler.vim'
+  nnoremap <silent> <leader>\ :VimFilerExplorer<CR>
+
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Shougo/deoplete.nvim'
   let g:deoplete#enable_at_startup = 1
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
   if !exists('g:deoplete#omni#input_patterns')
     let g:deoplete#omni#input_patterns = {}
-  endif 
+  endif
 
 Plug 'neomake/neomake'
   autocmd! BufWritePost * Neomake
-
-Plug 'craigemery/vim-autotag'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -127,8 +125,6 @@ Plug 'tpope/vim-fugitive'
   nnoremap <leader>gs :Gstatus<CR>
   nnoremap <leader>gc :Gcommit<CR>
 
-Plug 'jiangmiao/auto-pairs'
-
 Plug 'airblade/vim-gitgutter'
 
 Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'css'] }
@@ -140,39 +136,60 @@ Plug 'junegunn/goyo.vim'
   nnoremap <leader>df :Goyo<CR>
 
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'jiangmiao/auto-pairs'
 
 Plug 'christoomey/vim-tmux-navigator'
-
-Plug 'sheerun/vim-polyglot'
-  let g:polyglot_disabled = ['haxe']
-
-Plug 'jdonaldson/vaxe', { 'for': 'haxe' }
-
-Plug 'leafo/moonscript-vim', { 'for': 'moon' }
-
-Plug 'racer-rust/vim-racer', { 'for': 'rust' }
-  let g:racer_cmd = "~/.cargo/bin/racer"
-
-Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 
 Plug 'mileszs/ack.vim'
   if executable('ag')
     let g:ackprg = 'ag --vimgrep'
   endif
 
-call plug#end()
+" Javascript
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+  let g:javascript_conceal_arrow_function = "⇒"
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+  let g:jsx_ext_required = 0
 
-" Syntax / Filetype things
-" ==============================================================================
-" Go
-autocmd FileType go setlocal shiftwidth=4 tabstop=4
+" Lua
+Plug 'tbastos/vim-lua', { 'for': 'lua' }
+
+" Moonscript
+Plug 'leafo/moonscript-vim', { 'for': 'moon' }
+
 " Rust
-let g:rustfmt_autosave = 1
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+  let g:racer_cmd = "/Users/kemble/.cargo/bin/racer"
+  let g:rustfmt_autosave = 1
+
+" TOML
+Plug 'cespare/vim-toml', { 'for': 'toml' }
+
+" Haskell
+Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell', 'cabal'] }
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+
+" Elixir
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+
+" Go
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'}
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_types = 1
+  let g:go_highlight_operators = 1
+  au FileType go setl tabstop=4 shiftwidth=4
+
+call plug#end()
 
 " UI
 " ==============================================================================
-set background=dark
-colorscheme hybrid
+set background=light
+colorscheme seoul256-light
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
