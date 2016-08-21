@@ -5,19 +5,21 @@
 
 " Map the leader key to space
 let g:mapleader = "\<Space>"
-" Enable glorious 24bit true color
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" True color support
+if (has("termguicolors"))
+  set termguicolors
+endif
 
 " Plugins
 " ===============================================================================
 call plug#begin()
 
-Plug 'junegunn/seoul256.vim'
-Plug 'shinchu/lightline-seoul256.vim'
+Plug 'rakr/vim-two-firewatch'
+Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'itchyny/lightline.vim'
   let g:lightline = {
-        \ 'colorscheme': 'seoul256',
+        \ 'colorscheme': 'PaperColor',
         \ 'mode_map' : {
         \ 'n' : 'N',
         \ 'i' : 'I',
@@ -132,8 +134,12 @@ Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'css'] }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'scss', 'css', 'js', 'jsx'] }
   let g:user_emmet_leader_key = '<C-E>'
 
+Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
-  nnoremap <leader>df :Goyo<CR>
+  nnoremap <leader>g :Goyo<CR>
+  let g:goyo_width = 100
+  autocmd! User GoyoEnter Limelight
+  autocmd! User GoyoLeave Limelight!
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
@@ -182,6 +188,7 @@ Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'}
   let g:go_highlight_methods = 1
   let g:go_highlight_types = 1
   let g:go_highlight_operators = 1
+  let g:go_fmt_command = "goimports"
   au FileType go setl tabstop=4 shiftwidth=4
 
 call plug#end()
@@ -189,7 +196,7 @@ call plug#end()
 " UI
 " ==============================================================================
 set background=light
-colorscheme seoul256-light
+colorscheme PaperColor
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
