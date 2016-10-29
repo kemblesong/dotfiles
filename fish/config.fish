@@ -17,7 +17,7 @@ abbr -a gs git status
 abbr -a gl git log
 abbr -a o open
 
-set -U fish_user_paths $GOPATH/bin $HOME/.cargo/bin $HOME/.local/bin $fish_user_paths
+set -U fish_user_paths $GOPATH/bin $HOME/.yarn/bin $HOME/.cargo/bin $HOME/.local/bin $fish_user_paths
 set -U EDITOR nvim
 set -x FZF_DEFAULT_COMMAND 'ag -g ""'
 set -x GOPATH $HOME/gospace
