@@ -1,48 +1,60 @@
-" NEOVIM CONFIGURATION
-" ~/.config/nvim/init.vim
+" VIM CONFIGURATION
+" ~/.vimrc
 " Kemble Song <kemblesong>
-" ===============================================================================
+" ==============================================================================
 
 " Map the leader key to space
 let g:mapleader = "\<Space>"
+
 " True color support
-set termguicolors
+if has('termguicolors')
+  set termguicolors
+  set t_8f=[38;2;%lu;%lu;%lum
+  set t_8b=[48;2;%lu;%lu;%lum
+endif
+
+" Sensible stuff
+if has('autocmd')
+  filetype plugin indent on
+endif
+
+if has('syntax') && !exists('g:syntax_on')
+  syntax enable
+endif
+
+if !&scrolloff
+  set scrolloff=1
+endif
+if !&sidescrolloff
+  set sidescrolloff=5
+endif
+set display+=lastline
 
 " Plugins
-" ===============================================================================
+" ==============================================================================
 call plug#begin()
 
-"Plug 'morhetz/gruvbox'
-Plug 'rakr/vim-two-firewatch'
+Plug 'morhetz/gruvbox'
 
 Plug 'vim-airline/vim-airline'
   let g:airline_left_sep = ' '
   let g:airline_right_sep = ' '
+  let g:airline_left_alt_sep = ' '
+  let g:airline_right_alt_sep = ' '
   let g:airline_powerline_fonts = 1
-  let g:airline_theme = 'twofirewatch'
 
 Plug 'jszakmeister/vim-togglecursor'
 
-Plug 'neovim/node-host'
+Plug 'w0rp/ale'
 
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimfiler.vim'
   nnoremap <silent> <leader>\ :VimFilerExplorer<CR>
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'Shougo/deoplete.nvim'
-  let g:deoplete#enable_at_startup = 1
-  inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-  if !exists('g:deoplete#omni#input_patterns')
-    let g:deoplete#omni#input_patterns = {}
-  endif
-
-Plug 'neomake/neomake'
-  autocmd! BufWritePost * Neomake
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-  let g:fzf_nvim_statusline = 0
   nnoremap <silent> <leader><space> :Files<CR>
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>; :Tags<CR>
@@ -112,7 +124,6 @@ Plug 'cespare/vim-toml', { 'for': 'toml' }
 
 " Haskell
 Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell', 'cabal'] }
-Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 
 " Elixir
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
@@ -120,7 +131,6 @@ Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 
 " Go
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'}
   let g:go_highlight_functions = 1
   let g:go_highlight_methods = 1
   let g:go_highlight_types = 1
@@ -129,20 +139,14 @@ Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'}
   au FileType go setl tabstop=4 shiftwidth=4
 
 " C++
-Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
-  let g:neomake_cpp_clang_maker = { 'args': ['-fsyntax-only', '-std=c++14', '-Wall', '-Wextra', '-Iinclude'] }
-  au FileType cpp setl tabstop=4 shiftwidth=4
-
-" Clojure / ClojureScript
-Plug 'clojure-vim/nvim-parinfer.js', { 'for': 'clojure' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+au FileType cpp setl tabstop=4 shiftwidth=4
 
 call plug#end()
 
 " UI
 " ==============================================================================
 set background=dark
-colorscheme two-firewatch
+colorscheme gruvbox
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
@@ -154,21 +158,26 @@ set noerrorbells        " don't beep
 set noshowmode          " don't show mode
 set laststatus=2        " don't show last status
 set showtabline=0       " Don't show tabline
+set wildmenu
 
 " Editor
 " ==============================================================================
-set expandtab	          " Tabs to spaces
+set expandtab	        " Tabs to spaces
 set smarttab            " Smart tabs
-set shiftwidth=2        " Shidt width
-set tabstop=2           " Set tabwidth to 2
+set shiftwidth=2
+set tabstop=2
 set hlsearch            " Highlight search results.
 set incsearch           " Jump to search result
 set ignorecase          " Make searching case insensitive
 set smartcase           " ... unless the query has capital letters.
-set ai                  " Set auto indent
-set si                  " Set smart indent
+set autoindent          " Set auto indent
+set smartindent         " Set smart indent
 set nowrap              " Don't wrap lines
 set hidden              " Allows buffers to be hidden even if modified.
+set ttimeout
+set ttimeoutlen=100
+set complete-=i
+set backspace=indent,eol,start
 
 " Keybindings
 " ==============================================================================
@@ -183,9 +192,9 @@ nnoremap <silent><leader>bl :ls<CR>
 " Clear highlight
 nnoremap <silent><leader>c :noh<CR>
 " Edit neovim config
-nnoremap <silent><leader>ev :e<space>~/.config/nvim/init.vim<CR>
+nnoremap <silent><leader>ev :e<space>~/.vimrc<CR>
 " Edit fish config
-nnoremap <silent><leader>ef :e<space>~/.config/fish/config.fish<CR>
+nnoremap <silent><leader>ez :e<space>~/.zshrc<CR>
 " Edit tmux config
 nnoremap <silent><leader>et :e<space>~/.tmux.conf<CR>
 " Save
@@ -208,11 +217,6 @@ nnoremap <silent><Leader>P "+P
 
 " Removes trailing spaces
 nnoremap <silent><Leader>t :call TrimWhiteSpace()<CR>
-
-" fix <c-h> in neovim
-if has('nvim')
-  nnoremap <BS> <C-W>h
-endif
 
 " Misc functions / auto commands
 " ==============================================================================
