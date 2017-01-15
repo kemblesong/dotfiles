@@ -1,18 +1,34 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+# Check if zplug is installed
+if [[ ! -d ~/.zplug ]]; then
+    git clone https://github.com/zplug/zplug ~/.zplug
+    source ~/.zplug/init.zsh && zplug update --self
 fi
 
-# Customize to your needs...
-alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
-alias v='nvim'
-alias vim='nvim'
-#export DEFAULT_FILE_STORAGE=custom_storages.MediaStorage
-#export STATICFILES_STORAGE=custom_storages.StaticStorage
+# Essential
+source ~/.zplug/init.zsh
+
+# Plugins
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-history-substring-search"
+zplug "lukechilds/zsh-nvm"
+zplug "mafredri/zsh-async", from:github
+zplug "supercrabtree/k"
+zplug "rupa/z"
+
+# Theme
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+
+# Install missing plugins
+if ! zplug check; then
+    zplug install
+fi
+
+# Then, source packages and add commands to $PATH
+zplug load
+
+bindkey -v
+
+# Environment
+export EDITOR=vim
+export GOPATH=~/go

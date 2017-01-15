@@ -10,78 +10,13 @@ let g:mapleader = "\<Space>"
 " ==============================================================================
 call plug#begin()
 
-Plug 'w0ng/vim-hybrid'
-  let g:hybrid_custom_term_colors = 1
-  let g:hybrid_reduced_contrast = 1
-
-Plug 'cocopon/lightline-hybrid.vim'
-
-Plug 'itchyny/lightline.vim'
-  let g:lightline = {
-        \ 'colorscheme': 'hybrid',
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'fugitive', 'filename', 'whitespace' ] ]
-        \ },
-        \ 'component_function': {
-        \   'fugitive': 'LightLineFugitive',
-        \   'readonly': 'LightLineReadonly',
-        \   'modified': 'LightLineModified',
-        \   'filename': 'LightLineFilename',
-        \   'whitespace': 'TrailingSpaceWarning'
-        \ },
-        \ 'separator': { 'left': '', 'right': '' },
-        \ 'subseparator': { 'left': '', 'right': '' }
-        \ }
-
-  function! LightLineModified()
-    if &filetype == "help"
-      return ""
-    elseif &modified
-      return "✎"
-    elseif &modifiable
-      return ""
-    else
-      return ""
-    endif
-  endfunction
-
-  function! LightLineReadonly()
-    if &filetype == "help"
-      return ""
-    elseif &readonly
-      return "∅"
-    else
-      return ""
-    endif
-  endfunction
-
-  function! LightLineFugitive()
-    if exists("*fugitive#head")
-      let _ = fugitive#head()
-      return strlen(_) ? '⎇ '._ : ''
-    endif
-    return ''
-  endfunction
-
-  function! LightLineFilename()
-    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-         \ ('' != LightLineModified() ? LightLineModified() . ' ' : '') .
-         \ ('' != expand('%:t') ? expand('%:t') : '[No Name]')
-  endfunction
-
-  function! TrailingSpaceWarning()
-    if !exists("b:statline_trailing_space_warning")
-      let lineno = search('\s$', 'nw')
-      if lineno != 0
-        let b:statline_trailing_space_warning = '[trailing:'.lineno.']'
-      else
-        let b:statline_trailing_space_warning = ''
-      endif
-    endif
-    return b:statline_trailing_space_warning
-  endfunction
-
+Plug 'lifepillar/vim-solarized8'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+  let g:airline_theme = 'solarized'
+  let g:airline_powerline_fonts = 1
+  let g:airline_left_sep = ' '
+  let g:airline_right_sep = ' '
 Plug 'jszakmeister/vim-togglecursor'
 
 Plug 'w0rp/ale'
@@ -95,6 +30,7 @@ Plug 'Shougo/vimfiler.vim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+  let $FZF_DEFAULT_COMMAND = 'ag -g ""'
   nnoremap <silent> <leader><space> :Files<CR>
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>; :Tags<CR>
@@ -122,7 +58,7 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'css'] }
 
-Plug 'junegunn/limelight.vim'
+"Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
   nnoremap <leader>df :Goyo<CR>
   "autocmd! User GoyoEnter Limelight
@@ -131,45 +67,13 @@ Plug 'junegunn/goyo.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'jiangmiao/auto-pairs'
-
 Plug 'christoomey/vim-tmux-navigator'
-
-Plug 'mileszs/ack.vim'
-  if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-  endif
-
-Plug 'metakirby5/codi.vim'
+Plug 'maxboisvert/vim-simple-complete'
 
 " Javascript
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
   let g:jsx_ext_required = 0
-
-" Elm
-Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-
-" Lua
-Plug 'tbastos/vim-lua', { 'for': 'lua' }
-
-" Moonscript
-Plug 'leafo/moonscript-vim', { 'for': 'moon' }
-
-" Rust
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'racer-rust/vim-racer', { 'for': 'rust' }
-  let g:racer_cmd = "/Users/kemble/.cargo/bin/racer"
-  let g:rustfmt_autosave = 1
-
-" TOML
-Plug 'cespare/vim-toml', { 'for': 'toml' }
-
-" Elixir
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-
-" C++
-au FileType cpp setl tabstop=4 shiftwidth=4
 
 call plug#end()
 
@@ -201,7 +105,7 @@ set display+=lastline
 " UI
 " ==============================================================================
 set background=dark
-colorscheme hybrid
+colorscheme solarized8_dark_high
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
@@ -236,6 +140,8 @@ set backspace=indent,eol,start
 
 " Keybindings
 " ==============================================================================
+nnoremap H ^
+nnoremap L $
 " Move to the next buffer
 nnoremap <silent><leader>l :bnext<CR>
 " Move to the previous buffer
@@ -278,9 +184,3 @@ nnoremap <silent><Leader>t :call TrimWhiteSpace()<CR>
 function! TrimWhiteSpace()
     %s/\s\+$//e
 endfunction
-
-" recalculate when idle, and after saving
-augroup statline_trail
-  autocmd!
-  autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
-augroup END
