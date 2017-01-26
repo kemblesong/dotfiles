@@ -10,13 +10,13 @@ let g:mapleader = "\<Space>"
 " ==============================================================================
 call plug#begin()
 
-Plug 'lifepillar/vim-solarized8'
+Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-  let g:airline_theme = 'solarized'
-  let g:airline_powerline_fonts = 1
-  let g:airline_left_sep = ' '
-  let g:airline_right_sep = ' '
+  let g:airline_theme = 'gruvbox'
+  let g:airline_left_sep = ''
+  let g:airline_right_sep = ''
+
 Plug 'jszakmeister/vim-togglecursor'
 
 Plug 'w0rp/ale'
@@ -105,7 +105,7 @@ set display+=lastline
 " UI
 " ==============================================================================
 set background=dark
-colorscheme solarized8_dark_high
+colorscheme gruvbox
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
