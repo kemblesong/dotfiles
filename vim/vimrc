@@ -10,12 +10,8 @@ let g:mapleader = "\<Space>"
 " ==============================================================================
 call plug#begin()
 
-Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-  let g:airline_theme = 'gruvbox'
-  let g:airline_left_sep = ''
-  let g:airline_right_sep = ''
 
 Plug 'jszakmeister/vim-togglecursor'
 
@@ -58,22 +54,27 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'css'] }
 
-"Plug 'junegunn/limelight.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
   nnoremap <leader>df :Goyo<CR>
-  "autocmd! User GoyoEnter Limelight
-  "autocmd! User GoyoLeave Limelight!
+  autocmd! User GoyoEnter Limelight
+  autocmd! User GoyoLeave Limelight!
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'jiangmiao/auto-pairs'
+
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'maxboisvert/vim-simple-complete'
+
+Plug 'maralla/completor.vim'
 
 " Javascript
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
   let g:jsx_ext_required = 0
+
+" Clojure / ClojureScript
+Plug 'bhurlow/vim-parinfer', {'for': ['clojure', 'clojurescript']}
 
 call plug#end()
 
@@ -97,15 +98,17 @@ endif
 if !&scrolloff
   set scrolloff=1
 endif
+
 if !&sidescrolloff
   set sidescrolloff=5
 endif
+
 set display+=lastline
 
 " UI
 " ==============================================================================
 set background=dark
-colorscheme gruvbox
+colorscheme nord
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
