@@ -6,35 +6,21 @@
 " Map the leader key to space
 let g:mapleader = "\<Space>"
 " Enable glorious 24bit true color
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+if has('termguicolors')
+  set termguicolors
+  set t_8f=[38;2;%lu;%lu;%lum
+  set t_8b=[48;2;%lu;%lu;%lum
+endif
 
 " Plugins
 " ===============================================================================
 call plug#begin()
 
-Plug 'mhinz/vim-startify'
-
-Plug 'w0ng/vim-hybrid'
-  let g:hybrid_custom_term_colors = 1
-  let g:hybrid_reduced_contrast = 1
-Plug 'cocopon/lightline-hybrid.vim'
+Plug 'morhetz/gruvbox'
 
 Plug 'itchyny/lightline.vim'
   let g:lightline = {
-        \ 'colorscheme': 'hybrid',
-        \ 'mode_map' : {
-        \ 'n' : 'N',
-        \ 'i' : 'I',
-        \ 'R' : 'R',
-        \ 'v' : 'V',
-        \ 'V' : 'V',
-        \ "\<C-v>": 'V',
-        \ 'c' : 'C',
-        \ 's' : 'S',
-        \ 'S' : 'S',
-        \ "\<C-s>": 'S',
-        \ 't': 'T',
-        \ '?': '' },
+        \ 'colorscheme': 'gruvbox',
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ],
         \             [ 'fugitive', 'filename', 'whitespace' ] ]
@@ -100,23 +86,39 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'jszakmeister/vim-togglecursor'
 
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimfiler.vim'
+  nnoremap <silent> <leader>\ :VimFilerExplorer<CR>
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim'
   let g:deoplete#enable_at_startup = 1
-
-Plug 'neomake/neomake'
-  autocmd! BufWritePost * Neomake
-
-Plug 'craigemery/vim-autotag'
+endif
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-  let g:fzf_nvim_statusline = 0
   nnoremap <silent> <leader><space> :Files<CR>
   nnoremap <silent> <leader>a :Buffers<CR>
   nnoremap <silent> <leader>; :Tags<CR>
   nnoremap <silent> <leader>. :Lines<CR>
   nnoremap <silent> <leader>/ :Ag<CR>
-  let $FZF_DEFAULT_OPTS='--color=bw'
+  let g:fzf_colors =
+  \ { 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
+
+  if has('nvim')
+    let g:fzf_nvim_statusline = 0
+  endif
 
 Plug 'tpope/vim-fugitive'
   nnoremap <leader>gs :Gstatus<CR>
@@ -126,10 +128,7 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'css'] }
-
-Plug 'mattn/emmet-vim', { 'for': ['html', 'scss', 'css', 'js', 'jsx'] }
-  let g:user_emmet_leader_key = '<C-E>'
+Plug 'ap/vim-css-color'
 
 Plug 'junegunn/goyo.vim'
   nnoremap <leader>df :Goyo<CR>
@@ -139,26 +138,17 @@ Plug 'tpope/vim-surround'
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'sheerun/vim-polyglot'
-  let g:polyglot_disabled = ['haxe']
-  
-Plug 'jdonaldson/vaxe', { 'for': 'haxe' }
-
-Plug 'leafo/moonscript-vim', { 'for': 'moon' }
-
-Plug 'mileszs/ack.vim'
-  if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-  endif
+  autocmd Filetype javascript setlocal ts=4 sw=4
+  autocmd Filetype scss setlocal ts=4 sw=4
+  autocmd Filetype htmldjango setlocal ts=4 sw=4
+  autocmd Filetype liquid setlocal ts=4 sw=4
 
 call plug#end()
-
-" Syntax / Filetype things
-" ==============================================================================
 
 " UI
 " ==============================================================================
 set background=dark
-colorscheme hybrid
+colorscheme gruvbox
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
@@ -210,6 +200,8 @@ nnoremap <silent><leader>s :w<CR>
 nnoremap <silent><leader>q :q<CR>
 " Toggle relative/absolute line numbers
 nnoremap <silent><leader>n :set rnu! rnu? <cr>
+" ; is :
+nnoremap ; :
 " jk is escape
 inoremap jk <esc>
 " System clipboard copy/paste
@@ -221,14 +213,12 @@ nnoremap <silent><Leader>d "+d
 nnoremap <silent><Leader>y "+y
 nnoremap <silent><Leader>p "+p
 nnoremap <silent><Leader>P "+P
+" Better start/end line navigation
+nnoremap H ^
+nnoremap L $
 
 " Removes trailing spaces
 nnoremap <silent><Leader>t :call TrimWhiteSpace()<CR>
-
-" fix <c-h> in neovim
-if has('nvim')
-  nnoremap <BS> <C-W>h
-endif
 
 " Misc functions / auto commands
 " ==============================================================================
