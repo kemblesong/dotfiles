@@ -16,79 +16,24 @@ endif
 " ===============================================================================
 call plug#begin()
 
-Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-wwdc17-theme'
+Plug 'tyrannicaltoucan/vim-quantum'
 
-Plug 'itchyny/lightline.vim'
-  let g:lightline = {
-        \ 'colorscheme': 'gruvbox',
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'fugitive', 'filename', 'whitespace' ] ]
-        \ },
-        \ 'component_function': {
-        \   'fugitive': 'LightLineFugitive',
-        \   'readonly': 'LightLineReadonly',
-        \   'modified': 'LightLineModified',
-        \   'filename': 'LightLineFilename',
-        \   'whitespace': 'TrailingSpaceWarning'
-        \ },
-        \ 'separator': { 'left': '', 'right': '' },
-        \ 'subseparator': { 'left': '', 'right': '' }
-        \ }
-
-  function! LightLineModified()
-    if &filetype == "help"
-      return ""
-    elseif &modified
-      return "✎"
-    elseif &modifiable
-      return ""
-    else
-      return ""
-    endif
-  endfunction
-
-  function! LightLineReadonly()
-    if &filetype == "help"
-      return ""
-    elseif &readonly
-      return "∅"
-    else
-      return ""
-    endif
-  endfunction
-
-  function! LightLineFugitive()
-    if exists("*fugitive#head")
-      let _ = fugitive#head()
-      return strlen(_) ? '⎇ '._ : ''
-    endif
-    return ''
-  endfunction
-
-  function! LightLineFilename()
-    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-         \ ('' != LightLineModified() ? LightLineModified() . ' ' : '') .
-         \ ('' != expand('%:t') ? expand('%:t') : '[No Name]')
-  endfunction
-
-  function! TrailingSpaceWarning()
-    if !exists("b:statline_trailing_space_warning")
-      let lineno = search('\s$', 'nw')
-      if lineno != 0
-        let b:statline_trailing_space_warning = '[trailing:'.lineno.']'
-      else
-        let b:statline_trailing_space_warning = ''
-      endif
-    endif
-    return b:statline_trailing_space_warning
-  endfunction
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+  let g:airline_theme = 'quantum'
 
 Plug 'jszakmeister/vim-togglecursor'
 
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimfiler.vim'
   nnoremap <silent> <leader>\ :VimFilerExplorer<CR>
+
+Plug 'w0rp/ale'
+  let g:ale_linters = {
+      \ 'javascript': ['eslint'],
+      \ 'scss': [],
+  \}
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim'
@@ -140,6 +85,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'sheerun/vim-polyglot'
   autocmd Filetype javascript setlocal ts=4 sw=4
   autocmd Filetype scss setlocal ts=4 sw=4
+  autocmd Filetype html setlocal ts=4 sw=4
   autocmd Filetype htmldjango setlocal ts=4 sw=4
   autocmd Filetype liquid setlocal ts=4 sw=4
 
@@ -148,7 +94,7 @@ call plug#end()
 " UI
 " ==============================================================================
 set background=dark
-colorscheme gruvbox
+colorscheme quantum
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
@@ -225,9 +171,3 @@ nnoremap <silent><Leader>t :call TrimWhiteSpace()<CR>
 function! TrimWhiteSpace()
     %s/\s\+$//e
 endfunction
-
-" recalculate when idle, and after saving
-augroup statline_trail
-  autocmd!
-  autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
-augroup END

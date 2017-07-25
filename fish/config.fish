@@ -17,4 +17,4 @@ abbr -a gs git status
 abbr -a gl git log
 abbr -a o open
 
-# set -x FZF_DEFAULT_COMMAND 'ag -g ""'
+set -x FZF_DEFAULT_COMMAND 'ag -g ""'
