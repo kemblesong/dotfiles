@@ -16,12 +16,13 @@ endif
 " ===============================================================================
 call plug#begin()
 
+Plug 'rakr/vim-one'
 Plug 'lifepillar/vim-wwdc17-theme'
-Plug 'tyrannicaltoucan/vim-quantum'
+Plug 'lifepillar/vim-solarized8'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-  let g:airline_theme = 'quantum'
+  let g:airline_theme='solarized'
 
 Plug 'jszakmeister/vim-togglecursor'
 
@@ -93,8 +94,8 @@ call plug#end()
 
 " UI
 " ==============================================================================
-set background=dark
-colorscheme quantum
+set background=light
+colorscheme solarized8
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
