@@ -8,8 +8,7 @@ fish_vi_key_bindings
 function fish_mode_prompt
 end function
 
-abbr -a v nvim
-abbr -a vim nvim
+abbr -a v vim
 abbr -a g git
 abbr -a gb git branch
 abbr -a gco git checkout

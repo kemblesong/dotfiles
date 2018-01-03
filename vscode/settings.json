@@ -1,0 +1,63 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "workbench.colorTheme": "Material Theme",
+    "editor.fontFamily": "'Input Mono Condensed', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.lineHeight": 24,
+    "editor.fontWeight": "100",
+    "editor.multiCursorModifier": "alt",
+    "editor.fontSize": 12,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j","k"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.otherModesKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>","s"],
+            "after": [],
+            "compands": [
+                {
+                    "command": ":w"
+                }
+            ]
+        },
+        {
+            "before":["<leader>","c"],
+            "after":[],
+            "commands": [
+                {
+                    "command": ":nohl"
+                }
+            ]
+        },
+        {
+            "before": ["H"],
+            "after": ["^"]
+        },
+        {
+            "before": ["L"],
+            "after": ["$"]
+        }
+    ],
+    "vim.leader": "<space>",
+    "vim.handleKeys":{
+        "<C-a>": false,
+        "<C-f>": false
+    },
+    "vim.enableNeovim": true,
+    "window.zoomLevel": 0,
+    "workbench.fontAliasing": "default",
+    "materialTheme.cache.workbench.settings": {
+        "themeColours": "Default"
+    },
+    "editor.minimap.showSlider": "always",
+    "editor.lineNumbers": "relative",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.iconTheme": "eq-material-theme-icons"
+}
