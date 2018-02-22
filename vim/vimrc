@@ -5,7 +5,6 @@
 
 " Map the leader key to space
 let g:mapleader = "\<Space>"
-
 " Plugins
 " ==============================================================================
 call plug#begin()
@@ -13,9 +12,25 @@ call plug#begin()
 Plug 'w0rp/ale'
   let g:ale_linters = {
   \   'javascript': ['eslint'],
+  \   'scss': [''],
   \}
 
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'mhartington/oceanic-next'
+Plug 'atelierbram/Base2Tone-vim'
+Plug 'rakr/vim-two-firewatch'
+
+Plug 'vim-airline/vim-airline'
+  let g:airline_powerline_fonts = 1
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline_left_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_left_alt_sep = '|'
+  let g:airline_right_alt_sep = '|'
+  let g:airline_theme='Base2Tone_EveningDark'
+
+Plug 'jszakmeister/vim-togglecursor'
+Plug 'Yggdroot/indentLine'
+  let g:indentLine_char = '⎸'
 
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimfiler.vim'
@@ -32,7 +47,7 @@ Plug 'junegunn/fzf.vim'
   let g:fzf_colors =
             \ { 'fg':      ['fg', 'Normal'],
             \ 'bg':      ['bg', 'Normal'],
-            \ 'hl':      ['fg', 'Keyword'],
+            \ 'hl':      ['fg', 'Comment'],
             \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
             \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
             \ 'hl+':     ['fg', 'Statement'],
@@ -55,8 +70,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'jiangmiao/auto-pairs'
-" Plug 'christoomey/vim-tmux-navigator'
-Plug 'maxboisvert/vim-simple-complete'
+Plug 'maralla/completor.vim'
 
 Plug 'sheerun/vim-polyglot'
   autocmd Filetype javascript setlocal ts=4 sw=4
@@ -64,9 +78,13 @@ Plug 'sheerun/vim-polyglot'
   autocmd Filetype html setlocal ts=4 sw=4
   autocmd Filetype htmldjango setlocal ts=4 sw=4
   autocmd Filetype liquid setlocal ts=4 sw=4
+  autocmd Filetype blade setlocal ts=4 sw=4
+  autocmd Filetype php setlocal ts=4 sw=4
 
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
   let g:jsx_ext_required = 0
+
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -77,11 +95,11 @@ if has('autocmd')
 endif
 
 " True color support
-if has('termguicolors')
-  set termguicolors
+set termguicolors
+" if has('termguicolors')
   " set t_8f=[38;2;%lu;%lu;%lum
   " set t_8b=[48;2;%lu;%lu;%lum
-endif
+" endif
 
 if has('syntax') && !exists('g:syntax_on')
   syntax enable
@@ -97,8 +115,8 @@ set display+=lastline
 
 " UI
 " ==============================================================================
-set background=light
-colorscheme papercolor
+set background=dark
+colorscheme Base2Tone_EveningDark
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 " set cursorline          " Highlight cursor line
@@ -107,10 +125,11 @@ set showcmd             " Show command
 set ruler               " Show line positions
 set visualbell          " don't beep
 set noerrorbells        " don't beep
-" set noshowmode          " don't show mode
+set noshowmode          " don't show mode
 set laststatus=2        " don't show last status
 set showtabline=0       " Don't show tabline
 set wildmenu
+set encoding=utf8
 
 " Editor
 " ==============================================================================
@@ -135,6 +154,12 @@ set backspace=indent,eol,start
 " ==============================================================================
 nnoremap H ^
 nnoremap L $
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
 " Move to the next buffer
 nnoremap <silent><leader>l :bnext<CR>
 " Move to the previous buffer
