@@ -11,8 +11,6 @@ let g:mapleader = "\<Space>"
 call plug#begin()
 
 Plug 'arcticicestudio/nord-vim'
-Plug 'vim-airline/vim-airline'
-
 Plug 'jszakmeister/vim-togglecursor'
 
 Plug 'w0rp/ale'
@@ -61,20 +59,13 @@ Plug 'junegunn/goyo.vim'
   autocmd! User GoyoLeave Limelight!
 
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-endwise'
-Plug 'jiangmiao/auto-pairs'
 
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'maralla/completor.vim'
 
-" Javascript
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'sheerun/vim-polyglot'
   let g:jsx_ext_required = 0
-
-" Clojure / ClojureScript
-Plug 'bhurlow/vim-parinfer', {'for': ['clojure', 'clojurescript']}
 
 call plug#end()
 
@@ -117,7 +108,7 @@ set showcmd             " Show command
 set ruler               " Show line positions
 set visualbell          " don't beep
 set noerrorbells        " don't beep
-set noshowmode          " don't show mode
+" set noshowmode          " don't show mode
 set laststatus=2        " don't show last status
 set showtabline=0       " Don't show tabline
 set wildmenu
@@ -167,6 +158,8 @@ nnoremap <silent><leader>s :w<CR>
 nnoremap <silent><leader>q :q<CR>
 " Toggle relative/absolute line numbers
 nnoremap <silent><leader>n :set rnu! rnu? <cr>
+" ; is :
+nnoremap ; :
 " jk is escape
 inoremap jk <esc>
 " System clipboard copy/paste
