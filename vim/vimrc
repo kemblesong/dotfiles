@@ -10,12 +10,13 @@ let g:mapleader = "\<Space>"
 " ==============================================================================
 call plug#begin()
 
-Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
+" Plug 'atelierbram/Base2Tone-vim'
 Plug 'jszakmeister/vim-togglecursor'
 
 Plug 'w0rp/ale'
   let g:ale_linters = {
-  \   'javascript': ['eslint'],
+  \   'javascript': ['standard'],
   \}
 
 Plug 'Shougo/unite.vim'
@@ -54,9 +55,10 @@ Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'css'] }
 
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
+  let g:goyo_width = 120
   nnoremap <leader>df :Goyo<CR>
-  autocmd! User GoyoEnter Limelight
-  autocmd! User GoyoLeave Limelight!
+  " autocmd! User GoyoEnter Limelight
+  " autocmd! User GoyoLeave Limelight!
 
 Plug 'tpope/vim-surround'
 
@@ -99,7 +101,8 @@ set display+=lastline
 " UI
 " ==============================================================================
 set background=dark
-colorscheme nord
+colorscheme gruvbox
+" colorscheme Base2Tone_EveningDark
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
@@ -180,3 +183,4 @@ nnoremap <silent><Leader>t :call TrimWhiteSpace()<CR>
 function! TrimWhiteSpace()
     %s/\s\+$//e
 endfunction
+
