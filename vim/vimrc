@@ -10,11 +10,24 @@ let g:mapleader = "\<Space>"
 " ==============================================================================
 call plug#begin()
 
-Plug 'kaicataldo/material.vim'
-Plug 'jszakmeister/vim-togglecursor'
+" Plug 'connorholyday/vim-snazzy'
+" Plug 'liuchengxu/space-vim-theme'
+" Plug 'sainnhe/vim-color-forest-night'
+" Plug 'AlessandroYorba/Sierra'
+" Plug 'morhetz/gruvbox'
+" Plug 'ntk148v/vim-horizon'
+" Plug 'atelierbram/Base2Tone-vim'
+" Plug 'sainnhe/vim-color-ice-age'
+" Plug 'trevordmiller/nova-vim'
+" Plug 'sainnhe/gruvbox-material'
+" Plug 'NLKNguyen/papercolor-theme'
+Plug 'junegunn/seoul256.vim'
+
+Plug 'shinchu/lightline-seoul256.vim'
 Plug 'itchyny/lightline.vim'
-let g:lightline = {}
-let g:lightline.colorscheme = 'material_vim'
+ let g:lightline = {
+ \ 'colorscheme': 'seoul256',
+ \ }
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-endwise'
@@ -27,6 +40,7 @@ Plug 'w0rp/ale'
   \}
   let g:ale_fixers = {
   \   'javascript': ['prettier'],
+  \   'scss': ['prettier'],
   \}
   let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
   let g:ale_fix_on_save = 1
@@ -65,12 +79,12 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'ap/vim-css-color', { 'for': ['html', 'scss', 'css'] }
 
-" Plug 'junegunn/limelight.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
   let g:goyo_width = 120
   nnoremap <leader>df :Goyo<CR>
-  " autocmd! User GoyoEnter Limelight
-  " autocmd! User GoyoLeave Limelight!
+  autocmd! User GoyoEnter Limelight
+  autocmd! User GoyoLeave Limelight!
 
 Plug 'tpope/vim-surround'
 
@@ -78,6 +92,9 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'sheerun/vim-polyglot'
   let g:jsx_ext_required = 0
+  let g:javascript_plugin_flow = 1
+  autocmd FileType elm setlocal shiftwidth=4 tabstop=4
+
 
 call plug#end()
 
@@ -110,8 +127,8 @@ set display+=lastline
 
 " UI
 " ==============================================================================
-set background=dark
-colorscheme material
+set background=light
+colorscheme seoul256-light
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
 set cursorline          " Highlight cursor line
@@ -124,6 +141,11 @@ set noshowmode          " don't show mode
 set laststatus=2        " don't show last status
 set showtabline=0       " Don't show tabline
 set wildmenu
+
+" Toggle cursor shape based on mode
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[0 q"
 
 " Editor
 " ==============================================================================
@@ -143,6 +165,7 @@ set ttimeout
 set ttimeoutlen=100
 set complete-=i
 set backspace=indent,eol,start
+highlight Comment cterm=italic
 
 " Keybindings
 " ==============================================================================
@@ -164,6 +187,8 @@ nnoremap <silent><leader>ev :e<space>~/.vimrc<CR>
 nnoremap <silent><leader>ez :e<space>~/.zshrc<CR>
 " Edit tmux config
 nnoremap <silent><leader>et :e<space>~/.tmux.conf<CR>
+" Edit alacritty config
+nnoremap <silent><leader>ea :e<space>~/.config/alacritty/alacritty.yml<CR>
 " Save
 nnoremap <silent><leader>s :w<CR>
 " Quit
