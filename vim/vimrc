@@ -14,19 +14,23 @@ call plug#begin()
 " Plug 'liuchengxu/space-vim-theme'
 " Plug 'sainnhe/vim-color-forest-night'
 " Plug 'AlessandroYorba/Sierra'
-" Plug 'morhetz/gruvbox'
-" Plug 'ntk148v/vim-horizon'
+"Plug 'morhetz/gruvbox'
+Plug 'ntk148v/vim-horizon'
 " Plug 'atelierbram/Base2Tone-vim'
 " Plug 'sainnhe/vim-color-ice-age'
 " Plug 'trevordmiller/nova-vim'
-" Plug 'sainnhe/gruvbox-material'
+"Plug 'sainnhe/gruvbox-material'
 " Plug 'NLKNguyen/papercolor-theme'
-Plug 'junegunn/seoul256.vim'
+" Plug 'junegunn/seoul256.vim'
+"Plug 'flrnprz/candid.vim'
+" Plug 'Lokaltog/vim-monotone'
+"   let g:monotone_color = [10, 25, 80]
+" Plug 'arzg/vim-colors-xcode'
 
-Plug 'shinchu/lightline-seoul256.vim'
+"Plug 'shinchu/lightline-seoul256.vim'
 Plug 'itchyny/lightline.vim'
  let g:lightline = {
- \ 'colorscheme': 'seoul256',
+ \ 'colorscheme': 'horizon',
  \ }
 
 Plug 'jiangmiao/auto-pairs'
@@ -127,11 +131,11 @@ set display+=lastline
 
 " UI
 " ==============================================================================
-set background=light
-colorscheme seoul256-light
+set background=dark
+colorscheme horizon
 set number              " Show line numbers
 set relativenumber      " Set relative line numbers as default
-set cursorline          " Highlight cursor line
+" set cursorline          " Highlight cursor line
 set showmatch           " Show matching brackets
 set showcmd             " Show command
 set ruler               " Show line positions
@@ -171,6 +175,8 @@ highlight Comment cterm=italic
 " ==============================================================================
 nnoremap H ^
 nnoremap L $
+vnoremap H ^
+vnoremap L $
 " Move to the next buffer
 nnoremap <silent><leader>l :bnext<CR>
 " Move to the previous buffer
