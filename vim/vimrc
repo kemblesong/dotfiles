@@ -10,33 +10,16 @@ let g:mapleader = "\<Space>"
 " ==============================================================================
 call plug#begin()
 
-" Plug 'connorholyday/vim-snazzy'
-" Plug 'liuchengxu/space-vim-theme'
-" Plug 'sainnhe/vim-color-forest-night'
-" Plug 'AlessandroYorba/Sierra'
-"Plug 'morhetz/gruvbox'
-Plug 'ntk148v/vim-horizon'
-" Plug 'atelierbram/Base2Tone-vim'
-" Plug 'sainnhe/vim-color-ice-age'
-" Plug 'trevordmiller/nova-vim'
-"Plug 'sainnhe/gruvbox-material'
-" Plug 'NLKNguyen/papercolor-theme'
-" Plug 'junegunn/seoul256.vim'
-"Plug 'flrnprz/candid.vim'
-" Plug 'Lokaltog/vim-monotone'
-"   let g:monotone_color = [10, 25, 80]
-" Plug 'arzg/vim-colors-xcode'
-
-"Plug 'shinchu/lightline-seoul256.vim'
+Plug 'rose-pine/neovim'
 Plug 'itchyny/lightline.vim'
  let g:lightline = {
- \ 'colorscheme': 'horizon',
+ \ 'colorscheme': 'rosepine',
  \ }
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-endwise'
 
-Plug 'maralla/completor.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'w0rp/ale'
   let g:ale_linters = {
@@ -46,7 +29,6 @@ Plug 'w0rp/ale'
   \   'javascript': ['prettier'],
   \   'scss': ['prettier'],
   \}
-  let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
   let g:ale_fix_on_save = 1
 
 Plug 'Shougo/unite.vim'
@@ -61,19 +43,6 @@ Plug 'junegunn/fzf.vim'
   nnoremap <silent> <leader>; :Tags<CR>
   nnoremap <silent> <leader>. :Lines<CR>
   nnoremap <silent> <leader>/ :Ag<CR>
-  let g:fzf_colors =
-            \ { 'fg':      ['fg', 'Normal'],
-            \ 'bg':      ['bg', 'Normal'],
-            \ 'hl':      ['fg', 'Keyword'],
-            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-            \ 'hl+':     ['fg', 'Statement'],
-            \ 'info':    ['fg', 'PreProc'],
-            \ 'prompt':  ['fg', 'Conditional'],
-            \ 'pointer': ['fg', 'Exception'],
-            \ 'marker':  ['fg', 'Keyword'],
-            \ 'spinner': ['fg', 'Label'],
-            \ 'header':  ['fg', 'Comment'] }
 
 Plug 'tpope/vim-fugitive'
   nnoremap <leader>gs :Gstatus<CR>
@@ -109,11 +78,11 @@ if has('autocmd')
 endif
 
 " True color support
-if has('termguicolors')
-  set termguicolors
-  set t_8f=[38;2;%lu;%lu;%lum
-  set t_8b=[48;2;%lu;%lu;%lum
-endif
+" if has('termguicolors')
+set termguicolors
+"   set t_8f=[38;2;%lu;%lu;%lum
+"   set t_8b=[48;2;%lu;%lu;%lum
+" endif
 
 if has('syntax') && !exists('g:syntax_on')
   syntax enable
@@ -132,9 +101,9 @@ set display+=lastline
 " UI
 " ==============================================================================
 set background=dark
-colorscheme horizon
+colorscheme rose-pine
 set number              " Show line numbers
-set relativenumber      " Set relative line numbers as default
+" set relativenumber      " Set relative line numbers as default
 " set cursorline          " Highlight cursor line
 set showmatch           " Show matching brackets
 set showcmd             " Show command
@@ -169,7 +138,7 @@ set ttimeout
 set ttimeoutlen=100
 set complete-=i
 set backspace=indent,eol,start
-highlight Comment cterm=italic
+" highlight Comment cterm=italic
 
 " Keybindings
 " ==============================================================================
@@ -223,4 +192,3 @@ nnoremap <silent><Leader>t :call TrimWhiteSpace()<CR>
 function! TrimWhiteSpace()
     %s/\s\+$//e
 endfunction
-
