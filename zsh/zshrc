@@ -1,34 +1,15 @@
-# Check if zplug is installed
-if [[ ! -d ~/.zplug ]]; then
-    git clone https://github.com/zplug/zplug ~/.zplug
-    source ~/.zplug/init.zsh && zplug update --self
-fi
+eval "$(starship init zsh)"
 
-# Essential
-source ~/.zplug/init.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Plugins
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "lukechilds/zsh-nvm"
-zplug "mafredri/zsh-async", from:github
-zplug "supercrabtree/k"
-zplug "rupa/z"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Theme
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Install missing plugins
-if ! zplug check; then
-    zplug install
-fi
+# Added by Amplify CLI binary installer
+export PATH="$HOME/.amplify/bin:$PATH"
 
-# Then, source packages and add commands to $PATH
-zplug load
-
-bindkey -v
-
-# Environment
-export EDITOR=vim
-export GOPATH=~/go
+alias vim="nvim"
